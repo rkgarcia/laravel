@@ -32,6 +32,32 @@
 |
 */
 
+Route::get('test', function(){
+	echo Form::open_for_files(URL::current());
+
+	echo Form::file('myfile');
+
+	echo Form::submit('Submit');
+
+	echo Form::close();
+});
+
+Route::post('test', function(){
+
+	echo '<pre>';
+	// var_dump(Input::all());
+
+	$rules = array('myfile' => 'image');
+
+	$validation = Validator::make(Input::all(), $rules);
+
+	if ( $validation->fails() )
+	{
+		echo "<hr>";
+		var_dump($validation->errors);
+	}
+});
+
 Route::get('/', function()
 {
 	return View::make('home.index');

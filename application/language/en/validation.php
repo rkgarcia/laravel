@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return array(
 
@@ -60,7 +60,13 @@ return array(
 		"string"  => "The :attribute must be :size characters.",
 	),
 	"unique"         => "The :attribute has already been taken.",
+	"upload_exceed"  => "The :attribute exceeds the maximum file size.",
+	"upload_partial" => "The :attribute was only partially uploaded.",
+	"upload_readonly"=> "The application cannot save :attribute.",
 	"url"            => "The :attribute format is invalid.",
+
+
+
 
 	/*
 	|--------------------------------------------------------------------------

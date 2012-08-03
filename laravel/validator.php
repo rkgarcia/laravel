@@ -183,11 +183,41 @@ class Validator {
 		// rules will not be run for the attribute.
 		$validatable = $this->validatable($rule, $attribute, $value);
 
-		if ($validatable and ! $this->{'validate_'.$rule}($attribute, $value, $parameters, $this))
+		// If it's a file,
+		if ( ! is_null(Input::file($attribute)) and is_array($value) )
+		{
+			// If the uploaded file has no error code, run validation
+			if ( $value['error'] == 0 and $this->{'validate_'.$rule}($attribute, $value, $parameters, $this) )
+			{
+				return;
+			}
+
+			// Set error message
+			switch( $value['error'] )
+			{
+				case 1:
+				case 2:
+					$this->messages[$rule] = Lang::line('validation.upload_exceed')->get($this->language);
+					break;
+				case 3:
+					$this->messages[$rule] = Lang::line('validation.upload_partial')->get($this->language);
+					break;
+				case 6:
+				case 7:
+				case 8:
+					$this->messages[$rule] = Lang::line('validation.upload_readonly')->get($this->language);
+					break;
+			}
+
+			$this->error($attribute, $rule, $parameters);
+		}
+		else if ($validatable and ! $this->{'validate_'.$rule}($attribute, $value, $parameters, $this))
 		{
 			$this->error($attribute, $rule, $parameters);
 		}
 	}
+
+	protected function check_file()
 
 	/**
 	 * Determine if an attribute is validatable.
@@ -246,10 +276,6 @@ class Validator {
 			return false;
 		}
 		elseif (is_string($value) and trim($value) === '')
-		{
-			return false;
-		}
-		elseif ( ! is_null(Input::file($attribute)) and is_array($value) and $value['tmp_name'] == '')
 		{
 			return false;
 		}
@@ -741,6 +767,9 @@ class Validator {
 		{
 			$line = "{$bundle}validation.{$rule}";
 
+			var_dump($line);
+
+			echo "test";
 			return Lang::line($line)->get($this->language);
 		}
 	}
