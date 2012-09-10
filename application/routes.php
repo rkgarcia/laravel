@@ -44,24 +44,43 @@ Route::get('urltest', function(){
 
 	echo "<h2>Generic Assets</h2>";
 
+	// This will use the specified application.urls.asset url
 	var_dump(URL::to_asset('docs/something/test/hello.txt'));
+
+	// This will also use the application.urls.asset url
 	var_dump(URL::to_asset('docs/something/test/anotherdoc.doc', ''));
+
+	// This will use the application.urls.amazoncdn url
 	var_dump(URL::to_asset('secret.txt', 'amazoncdn'));
+
+	// This will use the application.urls.amazoncdn url and will properly ignore the https flag
+	var_dump(URL::to_asset('confidential.txt', 'amazoncdn', true));
+
+	// Will use the application.urls.asset url, will properly ignore https flag
+	var_dump(URL::to_asset('another.txt', null, true));
 
 	echo "<h2>Script Assets</h2>";
 
+	// Will use application.urls.asset url
 	echo htmlspecialchars(HTML::script('hello.js'));
+
+	// Will use application.urls.scripts_cdn url
 	echo htmlspecialchars(HTML::script('world.js', 'scripts_cdn'));
 
 	echo "<h2>CSS Assets</h2>";
 
+	// Will use application.urls.asset url
 	echo htmlspecialchars(HTML::style('funky.css'));
+
+	// Will use application.urls.styles url
 	echo htmlspecialchars(HTML::style('css/this/is/some/style/dir/taco.css', 'styles'));
 
 	echo "<h2>Images</h2>";
 
+	// Will use application.urls.images url
 	echo htmlspecialchars(HTML::image('chicken.jpg', 'images', 'a picture of a chicken'));
 	echo "<br>";
+	// Will use application.urls.images url, properly ignores https flag
 	echo htmlspecialchars(HTML::image('castle.jpg', 'images', 'a secure castle', array(), true));
 
 });
