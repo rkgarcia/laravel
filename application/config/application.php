@@ -4,7 +4,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Application URL
+	| Application URLs
 	|--------------------------------------------------------------------------
 	|
 	| The URL used to access your application without a trailing slash. The URL
@@ -13,20 +13,15 @@ return array(
 	|
 	*/
 
-	'url' => '',
-
-	/*
-	|--------------------------------------------------------------------------
-	| Asset URL
-	|--------------------------------------------------------------------------
-	|
-	| The base URL used for your application's asset files. This is useful if
-	| you are serving your assets through a different server or a CDN. If it
-	| is not set, we'll default to the application URL above.
-	|
-	*/
-
-	'asset_url' => '',
+	'urls' => array(
+		'base' => '',
+		'asset' => 'http://www.assets.com',
+		'amazoncdn' => 'http://dk3d0d3106.cloudfront.net',
+		'scripts_cdn' => 'http://www.somecdn.com/this/is/some/deep/directory/js',
+		'images' => 'http://www.somecdn.com/another/deep/directory/img',
+		'styles' => 'http://anotherserver.com',
+		'whatever' => 'http://hello.anything.com',
+	),
 
 	/*
 	|--------------------------------------------------------------------------

@@ -73,9 +73,9 @@ class HTML {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function script($url, $attributes = array())
+	public static function script($url, $source = null, $attributes = array())
 	{
-		$url = URL::to_asset($url);
+		$url = URL::to_asset($url, $source);
 
 		return '<script src="'.$url.'"'.static::attributes($attributes).'></script>'.PHP_EOL;
 	}
@@ -97,13 +97,13 @@ class HTML {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function style($url, $attributes = array())
+	public static function style($url, $source = null, $attributes = array())
 	{
 		$defaults = array('media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet');
 
 		$attributes = $attributes + $defaults;
 
-		$url = URL::to_asset($url);
+		$url = URL::to_asset($url, $source);
 
 		return '<link href="'.$url.'"'.static::attributes($attributes).'>'.PHP_EOL;
 	}
@@ -170,9 +170,9 @@ class HTML {
 	 * @param  bool    $https
 	 * @return string
 	 */
-	public static function link_to_asset($url, $title = null, $attributes = array(), $https = null)
+	public static function link_to_asset($url, $source, $title = null, $attributes = array(), $https = null)
 	{
-		$url = URL::to_asset($url, $https);
+		$url = URL::to_asset($url, $source, $https);
 
 		return '<a href="'.$url.'"'.static::attributes($attributes).'>'.static::entities($title).'</a>';
 	}
@@ -185,9 +185,9 @@ class HTML {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function link_to_secure_asset($url, $title = null, $attributes = array())
+	public static function link_to_secure_asset($url, $source, $title = null, $attributes = array())
 	{
-		return static::link_to_asset($url, $title, $attributes, true);
+		return static::link_to_asset($url, $source, $title, $attributes, true);
 	}
 
 	/**
@@ -278,11 +278,11 @@ class HTML {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function image($url, $alt = '', $attributes = array())
+	public static function image($url, $source = null, $alt = '', $attributes = array())
 	{
 		$attributes['alt'] = $alt;
 
-		return '<img src="'.URL::to_asset($url).'"'.static::attributes($attributes).'>';
+		return '<img src="'.URL::to_asset($url, $source).'"'.static::attributes($attributes).'>';
 	}
 
 	/**

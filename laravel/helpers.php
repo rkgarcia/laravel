@@ -338,9 +338,9 @@ function url($url = '', $https = null)
  * @param  bool    $https
  * @return string
  */
-function asset($url, $https = null)
+function asset($url, $source = null, $https = null)
 {
-	return Laravel\URL::to_asset($url, $https);
+	return Laravel\URL::to_asset($url, $source, $https);
 }
 
 /**
@@ -584,7 +584,7 @@ function get_cli_option($option, $default = null)
 
 	return value($default);
 }
-	
+
 /**
  * Calculate the human-readable file size (with proper units).
  *

@@ -37,6 +37,35 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
+Route::get('urltest', function(){
+	echo "<pre>";
+
+	echo "<h1>Testing Proposed application.urls array</h1>";
+
+	echo "<h2>Generic Assets</h2>";
+
+	var_dump(URL::to_asset('docs/something/test/hello.txt'));
+	var_dump(URL::to_asset('docs/something/test/anotherdoc.doc', ''));
+	var_dump(URL::to_asset('secret.txt', 'amazoncdn'));
+
+	echo "<h2>Script Assets</h2>";
+
+	echo htmlspecialchars(HTML::script('hello.js'));
+	echo htmlspecialchars(HTML::script('world.js', 'scripts_cdn'));
+
+	echo "<h2>CSS Assets</h2>";
+
+	echo htmlspecialchars(HTML::style('funky.css'));
+	echo htmlspecialchars(HTML::style('css/this/is/some/style/dir/taco.css', 'styles'));
+
+	echo "<h2>Images</h2>";
+
+	echo htmlspecialchars(HTML::image('chicken.jpg', 'images', 'a picture of a chicken'));
+	echo "<br>";
+	echo htmlspecialchars(HTML::image('castle.jpg', 'images', 'a secure castle', array(), true));
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

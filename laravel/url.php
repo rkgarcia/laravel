@@ -64,7 +64,7 @@ class URL {
 		// If the application's URL configuration is set, we will just use that
 		// instead of trying to guess the URL from the $_SERVER array's host
 		// and script variables as this is a more reliable method.
-		if (($url = Config::get('application.url')) !== '')
+		if (($url = Config::get('application.urls.base')) !== '')
 		{
 			$base = $url;
 		}
@@ -93,7 +93,7 @@ class URL {
 	 * @param  bool    $locale
 	 * @return string
 	 */
-	public static function to($url = '', $https = null, $asset = false, $locale = true)
+	public static function to($url = '', $source = null, $https = null, $asset = false, $locale = true)
 	{
 		// If the given URL is already valid or begins with a hash, we'll just return
 		// the URL unchanged since it is already well formed. Otherwise we will add
@@ -234,17 +234,23 @@ class URL {
 	 * Generate an application URL to an asset.
 	 *
 	 * @param  string  $url
+	 * @param  string  $source
 	 * @param  bool    $https
 	 * @return string
 	 */
-	public static function to_asset($url, $https = null)
+	public static function to_asset($url, $source = null, $https = null)
 	{
 		if (static::valid($url)) return $url;
+
+		if ( $root = Config::get('application.urls.'.$source, false))
+		{
+			return rtrim($root, '/').'/'.ltrim($url, '/');
+		}
 
 		// If a base asset URL is defined in the configuration, use that and don't
 		// try and change the HTTP protocol. This allows the delivery of assets
 		// through a different server or third-party content delivery network.
-		if ($root = Config::get('application.asset_url', false))
+		if ($root = Config::get('application.urls.asset', false))
 		{
 			return rtrim($root, '/').'/'.ltrim($url, '/');
 		}

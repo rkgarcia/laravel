@@ -556,9 +556,9 @@ class Form {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function image($url, $name = null, $attributes = array())
+	public static function image($url, $source = null, $name = null, $attributes = array())
 	{
-		$attributes['src'] = URL::to_asset($url);
+		$attributes['src'] = URL::to_asset($url, $source);
 
 		return static::input('image', $name, null, $attributes);
 	}
