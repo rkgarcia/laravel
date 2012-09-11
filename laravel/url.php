@@ -145,9 +145,9 @@ class URL {
 	 * @param  string  $url
 	 * @return string
 	 */
-	public static function to_secure($url = '')
+	public static function to_secure($url = '', $source = null)
 	{
-		return static::to($url, true);
+		return static::to($url, $source, true);
 	}
 
 	/**
